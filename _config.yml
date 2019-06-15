@@ -11,9 +11,17 @@ github_username:  interledger
 interledgerjs_baseurl: https://interledgerjs.github.io/
 gems:
   - jekyll-redirect-from
-  
+
 # Build settings
 markdown: kramdown
 exclude:
   - Gemfile
   - Gemfile.lock
+
+# Collections
+collections_dir: collections
+
+collections:
+  getting-started:
+      output: true
+      body-class: container docs-wrapper
