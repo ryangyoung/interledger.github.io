@@ -117,17 +117,47 @@
         <main class="main col-md-7 col-lg-6 order-md-3  " role="main" id="main_content_body">
   <article class="pt-3 p-md-3">
     <div class="content">
-        <h1 id="main-page-header">Libraries &amp; Tools</h1>
-        <p class="blurb">Build Interledger applications.</p>
-        <h2 id="spsp">SPSP</h2>
-<p>Build Interledger payments into your apps with the <a href="https://github.com/interledgerjs/ilp-protocol-spsp">ILP SPSP Client</a>. This library can connect to any SPSP receiver for account discovery and payment detail negotation. For more information on how to use SPSP, read <a href="https://medium.com/interledger-blog/spsp-simple-payment-setup-protocol-2028292e6925">"SPSP: Simple Payment Setup Protocol"</a> on the Interledger Blog. </p>
-<h2 id="koa-ilp">Koa ILP</h2>
-<p>If you use the <a href="http://koajs.com/">Koa framework</a> in Node.js, this library will allow you to monetize your API in only a few lines of code. For more information, <a href="https://github.com/interledgerjs/koa-ilp">check out our Github</a> and <a href="https://medium.com/interledger-blog/http-ilp-paid-api-calls-with-interledger-fda53643a2eb">our blog post about it.</a></p>
-<h2 id="ilp-fetch">ILP Fetch</h2>
-<p>You can use <a href="https://github.com/interledgerjs/ilp-fetch">ILP Fetch</a> as a client to HTTP-ILP. ILP Fetch follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a>, but allows the client to send payments. You can use it to interact with paid APIs on Interledger.</p>
-<h2 id="moneyd-xrp">Moneyd XRP</h2>
-<p><a href="https://github.com/interledgerjs/moneyd-xrp">Moneyd-XRP</a> allows you to connect to the Interledger network via XRP. It can be used on the livenet or the testnet with minimal configuration. We also have "Moneyd-ETH" and "Moneyd-Lightning" in the works.</p>
-<h2 id="more-tools-coming-soon">More tools coming soon!</h2>
+        <hr/>
+<p>title: ILP Over HTTP
+draft: 2</p>
+<hr/>
+<h1 id="ilp-over-http">ILP Over HTTP</h1>
+<blockquote>
+<p>A bilateral communication protocol for server-to-server connections</p>
+</blockquote>
+<h2 id="motivation">Motivation</h2>
+<p>Scaling Interledger infrastructure to handle large volumes of ILP packets requires horizontally scaling connectors. Using HTTP for bilateral communication enables service providers to leverage standard tools and services for hosting, load balancing, Distributed Denial of Service (DDoS) protection, and monitoring.</p>
+<h2 id="overview">Overview</h2>
+<p>In an ILP Over HTTP connection, both peers run HTTP servers with accessible HTTPS endpoints. When peering, the peers exchange their respective URLs, authentication tokens or TLS certificates, ILP addresses, and settlement-related details.</p>
+<p>Each ILP Prepare packet is sent as the body of an HTTP request to the peer's server endpoint. ILP Fulfill or Reject packets are returned as the body of the HTTP response.</p>
+<h2 id="specification">Specification</h2>
+<p>This is a minimal protocol built on HTTP. HTTP/2 is HIGHLY RECOMMENDED for performance reasons, although HTTP/1.1 MAY also be used. Implementations SHOULD support HTTP version negotiation via Application Protocol Negotiation (ALPN).</p>
+<h3 id="authentication">Authentication</h3>
+<p>Peers MAY use any standard HTTP authentication mechanism to authenticate incoming requests. TLS Client Certificates are RECOMMENDED between peers for security and performance, though bearer tokens such as JSON Web Tokens (JWTs) or Macaroons MAY be used instead. Basic authentication (username and password) is NOT RECOMMENDED, because of the additional delay introduced by securely hashing the password.</p>
+<h3 id="request">Request</h3>
+<pre><code class="http">POST /ilp HTTP/x.x
+Host: example.com
+Accept: application/octet-stream
+Content-Type: application/octet-stream
+Authorization: Bearer zxcljvoizuu09wqqpowipoalksdflksjdgxclvkjl0s909asdf
+
+&lt; Body: Binary OER-Encoded ILP Prepare Packet &gt;
+</code></pre>
+<p><strong>Field Details:</strong></p>
+<ul>
+<li><strong>Path</strong> - A connector MAY specify any HTTP path for their peer to send ILP packets to.</li>
+<li><strong>Host Header</strong> - The standard <a href="https://tools.ietf.org/html/rfc2616#section-14.23">HTTP Host Header</a> indicating the domain of the HTTP server the Request is sent to.</li>
+<li><strong>Content-Type / Accept Headers</strong> - MUST be set to <code>application/octet-stream</code>.</li>
+<li><strong>Body</strong> - ILP Packet encoded using OER, as specified in <a href="./0027-interledger-protocol-4/0027-interledger-protocol-4.md">RFC 27: Interledger Protocol V4</a>.</li>
+</ul>
+<h3 id="response">Response</h3>
+<pre><code class="http">HTTP/x.x 200 OK
+Content-Type: application/octet-stream
+
+&lt; Body: Binary OER-Encoded ILP Fulfill or Reject Packet &gt;
+</code></pre>
+<p>All ILP Packets MUST be returned with the HTTP status code <code>200: OK</code>.</p>
+<p>An endpoint MAY return standard HTTP errors, including but not limited to: a malformed or unauthenticated request, rate limiting, or an unresponsive upstream service. Connectors SHOULD either retry the request, if applicable, or relay an ILP Reject packet back to the original sender with an appropriate <a href="./0027-interledger-protocol-4/0027-interledger-protocol-4#error-codes">Final or Temporary error code</a>. Server errors (status codes 500-599) SHOULD be translated into ILP Reject packets with <code>T00: Temporary Error</code> codes.</p>
     </div>
   </article>
         </main>
@@ -139,11 +169,13 @@
       <h4>On This Page</h4>
     </div>
     <ul class="card-body">
-      <li class="level-2"><a href="#spsp">SPSP</a></li>
-<li class="level-2"><a href="#koa-ilp">Koa ILP</a></li>
-<li class="level-2"><a href="#ilp-fetch">ILP Fetch</a></li>
-<li class="level-2"><a href="#moneyd-xrp">Moneyd XRP</a></li>
-<li class="level-2"><a href="#more-tools-coming-soon">More tools coming soon!</a></li>
+      <li class="level-1"><a href="#ilp-over-http">ILP Over HTTP</a></li>
+<li class="level-2"><a href="#motivation">Motivation</a></li>
+<li class="level-2"><a href="#overview">Overview</a></li>
+<li class="level-2"><a href="#specification">Specification</a></li>
+<li class="level-3"><a href="#authentication">Authentication</a></li>
+<li class="level-3"><a href="#request">Request</a></li>
+<li class="level-3"><a href="#response">Response</a></li>
 
     </ul>
   </div>

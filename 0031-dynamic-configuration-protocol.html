@@ -117,17 +117,88 @@
         <main class="main col-md-7 col-lg-6 order-md-3  " role="main" id="main_content_body">
   <article class="pt-3 p-md-3">
     <div class="content">
-        <h1 id="main-page-header">Libraries &amp; Tools</h1>
-        <p class="blurb">Build Interledger applications.</p>
-        <h2 id="spsp">SPSP</h2>
-<p>Build Interledger payments into your apps with the <a href="https://github.com/interledgerjs/ilp-protocol-spsp">ILP SPSP Client</a>. This library can connect to any SPSP receiver for account discovery and payment detail negotation. For more information on how to use SPSP, read <a href="https://medium.com/interledger-blog/spsp-simple-payment-setup-protocol-2028292e6925">"SPSP: Simple Payment Setup Protocol"</a> on the Interledger Blog. </p>
-<h2 id="koa-ilp">Koa ILP</h2>
-<p>If you use the <a href="http://koajs.com/">Koa framework</a> in Node.js, this library will allow you to monetize your API in only a few lines of code. For more information, <a href="https://github.com/interledgerjs/koa-ilp">check out our Github</a> and <a href="https://medium.com/interledger-blog/http-ilp-paid-api-calls-with-interledger-fda53643a2eb">our blog post about it.</a></p>
-<h2 id="ilp-fetch">ILP Fetch</h2>
-<p>You can use <a href="https://github.com/interledgerjs/ilp-fetch">ILP Fetch</a> as a client to HTTP-ILP. ILP Fetch follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a>, but allows the client to send payments. You can use it to interact with paid APIs on Interledger.</p>
-<h2 id="moneyd-xrp">Moneyd XRP</h2>
-<p><a href="https://github.com/interledgerjs/moneyd-xrp">Moneyd-XRP</a> allows you to connect to the Interledger network via XRP. It can be used on the livenet or the testnet with minimal configuration. We also have "Moneyd-ETH" and "Moneyd-Lightning" in the works.</p>
-<h2 id="more-tools-coming-soon">More tools coming soon!</h2>
+        <hr/>
+<p>title: Interledger Dynamic Configuration Protocol
+draft: 3</p>
+<hr/>
+<h1 id="interledger-dynamic-configuration-protocol-ildcp-v1">Interledger Dynamic Configuration Protocol (ILDCP) v1</h1>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This specification assumes the reader is familiar with the following documents:</p>
+<ul>
+<li><a href="../0001-interledger-architecture/0001-interledger-architecture.md">Interledger Architecture</a></li>
+<li><a href="../0027-interledger-protocol-4/0027-interledger-protocol-4.md">Interledger Protocol V4 (ILPv4)</a></li>
+</ul>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li>A <strong>node</strong> is a participant in an Interledger network. It may be a <a href="../0001-interledger-architecture/0001-interledger-architecture.md#connectors">connector</a>, a sender or a receiver. </li>
+<li>Nodes are connected to each other and the relationship between two nodes is either:</li>
+<li><code>parent</code> and <code>child</code> (one node is the <code>parent</code> of another node that is relatively its <code>child</code>), or,</li>
+<li><code>peer</code> and <code>peer</code> (two nodes are peered with one another).</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Interledger is a protocol suite that consists of several protocols including the <a href="../0023-bilateral-transfer-protocol/0023-bilateral-transfer-protocol.md">Bilateral Transfer Protocol</a>, the Route Broadcasting Protocol and others necessary for establishment, operation and maintenance of the network. Interledger Dynamic Configuration Protocol (ILDCP) is one of these protocols.</p>
+<p>In order to participate in the network a node must have an <a href="../0015-ilp-addresses/0015-ilp-addresses.md">ILP address</a>. This address is part of a heirarchical address space where child nodes MAY be allocated addresses within the address space of their parent node. This makes routing on the network more efficient than if all nodes had top-level addresses.</p>
+<p>A node is therefore either configured with an address which it broadcasts to its peers or, if the node has a parent in the network hierarchy, the ILP address of the child node can be allocated to it by the parent. This is done using ILDCP.</p>
+<p>In short, <strong>ILDCP is a protocol used for transferring node and ledger information from a parent node to a child node</strong>. The transferred information is:</p>
+<ul>
+<li>An ILP address that the child should use for its own address</li>
+<li>e.g. <code>g.crypto.foo.bar</code></li>
+<li>An asset code of the asset that the two nodes will use to settle</li>
+<li>e.g. <code>XRP</code></li>
+<li>An asset scale for amounts that will be used in ILP packets exchanged between the nodes.</li>
+<li>e.g. <code>6</code></li>
+</ul>
+<p>Future versions of the protocol MAY exchange additional configuration information.</p>
+<h2 id="protocol-detail">Protocol Detail</h2>
+<h3 id="procedure">Procedure</h3>
+<p>An exchange of configuration information is done using the following procedure.</p>
+<ol>
+<li>A child node requests configuration information from the parent node</li>
+<li>The parent node responds with the configuration information to the child node</li>
+<li>If the request cannot be processed, the parent node responds with an error</li>
+</ol>
+<h3 id="packet">Packet</h3>
+<p>The request and the response above are transferred in <a href="../0027-interledger-protocol-4/0027-interledger-protocol-4.md#specification">ILP packets</a>. </p>
+<p>The <code>fulfillment</code> of the response packet is always a zero-filled 32 byte octet string, therefore the condition is always the SHA-256 hash digest of that, i.e. the Base64 decoded value of <code>Zmh6rfhivXdsj8GLjp+OIAiXFIVu4jOzkCpZHQ1fKSU=</code>.</p>
+<p>As with other bilateral protocols the packets are addressed directly to the peer using the <code>peer.</code> address prefix. ILDCP packets are specifically identified using the address <code>peer.config</code>.</p>
+<p>All current implementations of ILDCP default to an amount of <code>0</code> in the ILP packets used to request configuration. In future, peers may agree to pay a charge for reserving an address, in which case this may become a non-zero amount indicating the amount paid by the child to reserve an address. Future version of the protocol may allow for the child to explicitly request an address which may not be restricted to being in the parent's address-space.</p>
+<p>The packet exchange goes as follows:</p>
+<ul>
+<li>Request</li>
+<li>The <code>type</code> of the ILP packet is <code>ILP Prepare</code> (type id: 12)</li>
+<li>The <code>amount</code> of the ILP packet defaults to <code>0</code>.</li>
+<li>The <code>expiresAt</code> of the ILP packet is arbitrary.</li>
+<li>The <code>executionCondition</code> of the ILP packet is <code>Zmh6rfhivXdsj8GLjp+OIAiXFIVu4jOzkCpZHQ1fKSU=</code> in Base64 format</li>
+<li>The <code>destination</code> address of the ILP packet is <code>peer.config</code></li>
+<li>
+<p>The <code>data</code> of the ILP packet is empty (size: 0)</p>
+</li>
+<li>
+<p>Response</p>
+</li>
+<li>The <code>type</code> of the ILP packet is <code>ILP Fulfill</code> (type id: 13)</li>
+<li>The <code>fulfillment</code> of the ILP packet is a 32-byte octet string all filled with zeros</li>
+<li>
+<p>The <code>data</code> of the ILP packet takes a specific format and is described by <code>DynamicConfigurationResponseData</code> in the ILDCP <a href="#asn1-definition">ASN.1 definition</a>. It is an OER encoded SEQUENCE of</p>
+<ul>
+<li><code>Variable-length octet string</code>: An ILP address that the child should use, encoded as an <code>ASCII</code> string</li>
+<li><code>Uint8</code>: An unsigned 8-bit integer indicating the asset scale that should be used for packets exchanged with the parent</li>
+<li><code>Variable-length octet string</code>: An asset code, encoded as a <code>UTF-8</code> string, indicating the settlement asset used between the peers</li>
+</ul>
+</li>
+<li>
+<p>Error</p>
+</li>
+<li>The <code>type</code> of the ILP packet is <code>ILP Reject</code> (type id: 14)</li>
+<li>The <code>code</code> of the ILP packet is an appropriate error code</li>
+<li>The <code>message</code> of the ILP packet is an appropriate human-readable message for debugging purposes</li>
+<li>The <code>triggeredBy</code> of the ILP packet is the ILP address of the parent node</li>
+<li>The <code>data</code> of the ILP packet is empty (size: 0) or MAY contain further information for debugging the error.</li>
+</ul>
+<h3 id="asn1-definition">ASN.1 Definition</h3>
+<p>The ASN.1 definition of ILP packets is described in <a href="../asn1/InterledgerProtocol.asn">InterledgerProtocol.asn</a> and Dynamic Configuration Protocol data in <a href="../asn1/DynamicConfigurationProtocol.asn">DynamicConfigurationProtocol.asn</a>.</p>
+<h3 id="encoding">Encoding</h3>
+<p>All ASN.1 types are encoded using <a href="../0030-notes-on-oer-encoding/0030-notes-on-oer-encoding.md">Octet Encoding Rules</a> as is the norm with all Interledger protocols.</p>
     </div>
   </article>
         </main>
@@ -139,11 +210,15 @@
       <h4>On This Page</h4>
     </div>
     <ul class="card-body">
-      <li class="level-2"><a href="#spsp">SPSP</a></li>
-<li class="level-2"><a href="#koa-ilp">Koa ILP</a></li>
-<li class="level-2"><a href="#ilp-fetch">ILP Fetch</a></li>
-<li class="level-2"><a href="#moneyd-xrp">Moneyd XRP</a></li>
-<li class="level-2"><a href="#more-tools-coming-soon">More tools coming soon!</a></li>
+      <li class="level-1"><a href="#interledger-dynamic-configuration-protocol-ildcp-v1">Interledger Dynamic Configuration Protocol (ILDCP) v1</a></li>
+<li class="level-2"><a href="#prerequisites">Prerequisites</a></li>
+<li class="level-2"><a href="#terminology">Terminology</a></li>
+<li class="level-2"><a href="#overview">Overview</a></li>
+<li class="level-2"><a href="#protocol-detail">Protocol Detail</a></li>
+<li class="level-3"><a href="#procedure">Procedure</a></li>
+<li class="level-3"><a href="#packet">Packet</a></li>
+<li class="level-3"><a href="#asn1-definition">ASN.1 Definition</a></li>
+<li class="level-3"><a href="#encoding">Encoding</a></li>
 
     </ul>
   </div>
