@@ -1,7 +1,5 @@
 ## Welcome and State of the Interledger - Evan Schwartz
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HTXLAM3PCUY" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Summit Kickoff - Ethan Beard, Xpring
