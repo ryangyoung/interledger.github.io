@@ -3,7 +3,7 @@
   //Add active class to sidebar links
   function sidebarActiveClass() {
     var curentFile = window.location.pathname.split("/").pop();
-    $('.nav-sidebar > li > a[href="' + curentFile + '"]').parent().addClass('active');
+    $('.sidebar_pagelist > li > a[href="' + curentFile + '"]').addClass('active');
   }
 
   sidebarActiveClass();

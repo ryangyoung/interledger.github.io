@@ -49,17 +49,14 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarHolder">
               <ul class="nav navbar-nav">
         
-        
                     <li class="nav-item" ><a class="nav-link" href="overview.html">Docs</a></li>
                     <li class="nav-item" ><a class="nav-link" href="libraries.html">Tools</a></li>
                     <li class="nav-item" ><a class="nav-link" href="community.html">Community</a></li>
                     <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/interledger">Edit on Github</a></li>
-                    <li class="nav-item"><a class="nav-link" href="getting-started.html">Get Started</a></li>
+                    <li class="nav-item"><a class="nav-link cornerlink" href="getting-started.html">Get Started</a></li>
         
-        
-                
               </ul><!-- /.navbar-nav -->
-              
+              <div class="cornerbox"></div>
             </div>
             <div class="menu-overlay"></div>
           </nav>
@@ -76,7 +73,7 @@
     <div id="sidenav" class="tree_nav">
       <ul class=" sidebar_pagelist">
         <li class="nav-label">Quick Start</li>
-        <li ><a href="overview.html">Overview</a></li>
+        <li><a href="overview.html">Overview</a></li>
         <li><a href="getting-started.html">Getting Started</a></li>
       </ul>
       <ul class=" sidebar_pagelist">
@@ -85,8 +82,9 @@
         <li><a href="libraries.html">Libraries &amp; Tools</a></li>
         <li><a href="summit-2019.html">ILP Summit 2019 Videos</a></li>
       </ul>
-      <ul class=" sidebar_pagelist">
-        <li class="nav-label">Specs</li>
+
+      <div class="sidebar-nav-header">Specs</div>
+      <ul class=" sidebar_pagelist sidebar_indent">
         <!--    <li><a href="rfcs/0001-interledger-architecture/">Interledger Architecture</a></li> -->
         <li><a href="0027-interledger-protocol-4.html">Interledger Protocol 4 (ILPv4)</a></li>
         <li><a href="0015-ilp-addresses.html">Interledger Addresses</a></li>
@@ -99,7 +97,8 @@
         <li><a href="0032-peering-clearing-settlement.html">Peering, Clearing and Settlement</a></li>
         <li><a href="0035-ilp-over-http.html">ILP over HTTP</a></li>
         <li><a href="0036-spsp-pull-payments.html">SPSP Pull Payments</a></li>
-        <li><a target="_blank" href="https://w3c.github.io/webpayments/proposals/interledger-payment-method.html">W3C Web Payments Interledger Payment Method</a></li>
+        <li><a target="_blank" href="https://w3c.github.io/webpayments/proposals/interledger-payment-method.html">W3C Web Payments</a></li>
+
       </ul>
     </div>
           </aside>
@@ -108,7 +107,7 @@
           <!-- main column -->
         <main class="main col-md-7 col-lg-6 order-md-3  " role="main" id="main_content_body">
   <article class="pt-3 p-md-3">
-    <div class="content">
+    <div class="content doc-content">
         <hr/>
 <p>title: Interledger Dynamic Configuration Protocol
 draft: 3</p>
