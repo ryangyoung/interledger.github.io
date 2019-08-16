@@ -1,5 +1,5 @@
 out_path: ../
-content_path: content
+content_path: ../_content
 template_path: templates
 template_static_path: template_assets
 default_template: template-doc.html
@@ -75,7 +75,7 @@ pages:
     -   name: Interledger Protocol V4 (ILPv4)
         funnel: Docs
         doc_type: Specs
-        html: 0027-interledger-protocol-4.html
+        html: rfcs/0027-interledger-protocol-4/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0027-interledger-protocol-4/0027-interledger-protocol-4.md
         template: template-spec.html
         targets:
@@ -84,7 +84,7 @@ pages:
     -   name: ILP Addresses
         funnel: Docs
         doc_type: Specs
-        html: 0015-ilp-addresses.html
+        html: rfcs/0015-ilp-addresses/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0015-ilp-addresses/0015-ilp-addresses.md
         template: template-spec.html
         targets:
@@ -93,7 +93,7 @@ pages:
     -   name: STREAM
         funnel: Docs
         doc_type: Specs
-        html: 0029-stream.html
+        html: rfcs/0029-stream/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0029-stream/0029-stream.md
         template: template-spec.html
         targets:
@@ -102,7 +102,7 @@ pages:
     -   name: Simple Payment Setup Protocol (SPSP)
         funnel: Docs
         doc_type: Specs
-        html: 0009-simple-payment-setup-protocol.html
+        html: rfcs/0009-simple-payment-setup-protocol/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0009-simple-payment-setup-protocol/0009-simple-payment-setup-protocol.md
         template: template-spec.html
         targets:
@@ -111,7 +111,7 @@ pages:
     -   name: Payment Pointers
         funnel: Docs
         doc_type: Specs
-        html: 0026-payment-pointers.html
+        html: rfcs/0026-payment-pointers/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0026-payment-pointers/0026-payment-pointers.md
         template: template-spec.html
         targets:
@@ -120,7 +120,7 @@ pages:
     # -   name: Web Monetization
     #     funnel: Docs
     #     doc_type: Specs
-    #     html: 0028-web-monetization.html
+    #     html: rfcs/0028-web-monetization/index.html
     #     md: https://raw.githubusercontent.com/interledger/rfcs/master/0028-web-monetization/0028-web-monetization.md
     #     template: template-spec.html
     #     targets:
@@ -129,7 +129,7 @@ pages:
     -   name: Notes on OER Encoding
         funnel: Docs
         doc_type: Specs
-        html: 0030-notes-on-oer-encoding.html
+        html: rfcs/0030-notes-on-oer-encoding/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0030-notes-on-oer-encoding/0030-notes-on-oer-encoding.md
         template: template-spec.html
         targets:
@@ -138,7 +138,7 @@ pages:
     -   name: Dynamic Configuration Protocol (ILDCP)
         funnel: Docs
         doc_type: Specs
-        html: 0031-dynamic-configuration-protocol.html
+        html: rfcs/0031-dynamic-configuration-protocol/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0031-dynamic-configuration-protocol/0031-dynamic-configuration-protocol.md
         template: template-spec.html
         targets:
@@ -147,7 +147,7 @@ pages:
     -   name: Peering, Clearing and Settling
         funnel: Docs
         doc_type: Specs
-        html: 0032-peering-clearing-settlement.html
+        html: rfcs/0032-peering-clearing-settlement/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0032-peering-clearing-settlement/0032-peering-clearing-settlement.md
         template: template-spec.html
         targets:
@@ -156,7 +156,7 @@ pages:
     -   name: ILP Over HTTP
         funnel: Docs
         doc_type: Specs
-        html: 0035-ilp-over-http.html
+        html: rfcs/0035-ilp-over-http/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0035-ilp-over-http/0035-ilp-over-http.md
         template: template-spec.html
         targets:
@@ -165,7 +165,7 @@ pages:
     -   name: SPSP Pull Payments
         funnel: Docs
         doc_type: Specs
-        html: 0036-spsp-pull-payments.html
+        html: rfcs/0036-spsp-pull-payments/index.html
         md: https://raw.githubusercontent.com/interledger/rfcs/master/0036-spsp-pull-payments/0036-spsp-pull-payments.md
         template: template-spec.html
         targets:
