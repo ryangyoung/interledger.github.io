@@ -101,17 +101,39 @@
         <main class="main col-md-7 col-lg-6 order-md-3  " role="main" id="main_content_body">
   <article class="pt-3 p-md-3">
     <div class="content doc-content">
-        <h1 id="main-page-header">Libraries &amp; Tools</h1>
-        <p class="blurb">Build Interledger applications.</p>
-        <h2 id="spsp">SPSP</h2>
-<p>Build Interledger payments into your apps with the <a href="https://github.com/interledgerjs/ilp-protocol-spsp">ILP SPSP Client</a>. This library can connect to any SPSP receiver for account discovery and payment detail negotation. For more information on how to use SPSP, read <a href="https://medium.com/interledger-blog/spsp-simple-payment-setup-protocol-2028292e6925">"SPSP: Simple Payment Setup Protocol"</a> on the Interledger Blog. </p>
-<h2 id="koa-ilp">Koa ILP</h2>
-<p>If you use the <a href="http://koajs.com/">Koa framework</a> in Node.js, this library will allow you to monetize your API in only a few lines of code. For more information, <a href="https://github.com/interledgerjs/koa-ilp">check out our Github</a> and <a href="https://medium.com/interledger-blog/http-ilp-paid-api-calls-with-interledger-fda53643a2eb">our blog post about it.</a></p>
-<h2 id="ilp-fetch">ILP Fetch</h2>
-<p>You can use <a href="https://github.com/interledgerjs/ilp-fetch">ILP Fetch</a> as a client to HTTP-ILP. ILP Fetch follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a>, but allows the client to send payments. You can use it to interact with paid APIs on Interledger.</p>
-<h2 id="moneyd-xrp">Moneyd XRP</h2>
-<p><a href="https://github.com/interledgerjs/moneyd-xrp">Moneyd-XRP</a> allows you to connect to the Interledger network via XRP. It can be used on the livenet or the testnet with minimal configuration. We also have "Moneyd-ETH" and "Moneyd-Lightning" in the works.</p>
-<h2 id="more-tools-coming-soon">More tools coming soon!</h2>
+        <h1 id="main-page-header">Sending Value Programmatically</h1>
+        <p class="blurb">This tutorial shows how to send value over ILP using the SPSP API.</p>
+        <h2 id="before-you-begin">Before you begin</h2>
+<p>This tutorial assumes that you’re running <code>moneyd</code> and SPSP server on your computer. 
+If you're not set up, you can learn how to <a href="getting-started.html">set up moneyd and SPSP here.</a></p>
+<h2 id="sending-value">Sending value</h2>
+<p>To send value programmatically, you need to install <code>ilp-protocol-spsp</code> and <code>ilp-plugin</code> modules. 
+Open a command line and use the following commands:</p>
+<pre><code class="shell">$ mkdir ilp-getting-started
+$ cd ilp-getting-started
+$ npm init
+$ npm install --save ilp-protocol-spsp ilp-plugin
+</code></pre>
+<p>Now, using an editor of your choice, create a <code>index.js</code> file and add the following code snippet:</p>
+<pre><code class="js">const plugin = require('ilp-plugin')()
+const SPSP = require('ilp-protocol-spsp')
+
+async function run () {
+  console.log('paying http://localhost:8080...')
+  await SPSP.pay(plugin, {
+    receiver: 'http://localhost:8080',
+    sourceAmount: '10'
+  })
+  console.log('paid!')
+}
+
+run().catch(e =&gt; console.error(e))
+</code></pre>
+<p>Finally, run the code using the command:</p>
+<pre><code class="shell">$ node index.js
+</code></pre>
+<p>You should see <code>paid!</code> on the sending terminal and <code>got packet for 10 units</code> on the receiving terminal confirming 
+that you have successfully sent and received value through the Interledger protocol.</p>
     </div>
   </article>
         </main>
@@ -122,11 +144,8 @@
       <h4>On This Page</h4>
     </div>
     <ul class="card-body">
-      <li class="level-2"><a href="#spsp">SPSP</a></li>
-<li class="level-2"><a href="#koa-ilp">Koa ILP</a></li>
-<li class="level-2"><a href="#ilp-fetch">ILP Fetch</a></li>
-<li class="level-2"><a href="#moneyd-xrp">Moneyd XRP</a></li>
-<li class="level-2"><a href="#more-tools-coming-soon">More tools coming soon!</a></li>
+      <li class="level-2"><a href="#before-you-begin">Before you begin</a></li>
+<li class="level-2"><a href="#sending-value">Sending value</a></li>
 
     </ul>
   </div>

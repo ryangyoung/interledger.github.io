@@ -46,8 +46,17 @@ pages:
         targets:
             - en
 
+    -   name: Sending Value Programmatically
+        funnel: Docs
+        doc_type: Overview
+        html: sending-value-programmatically.html
+        md: sending-value-programmatically.md
+        template: template-doc.html
+        blurb: This tutorial shows how to send value over ILP using the SPSP API.
+        targets:
+            - en
 
-# Community ---------------------------------------------------------------------
+# Community & resources ---------------------------------------------------------------------
 
     -   name: Get Involved
         funnel: Docs
@@ -77,6 +86,7 @@ pages:
         blurb: The 2019 summit brought together developers, entrepreneurs, and researchers in San Francisco for two days of sharing, building, and learning. Here you can find the recordings of the sessions and talks. Enjoy!
         targets:
             - en  
+
 
 
 # Specs ---------------------------------------------------------------------
@@ -180,6 +190,90 @@ pages:
         targets:
             - en      
 
+
+
+# Specs other ---------------------------------------------------------------------
+
+    -   name: Interledger Architecture
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0001-interledger-architecture/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0001-interledger-architecture/0001-interledger-architecture.md
+        template: template-spec.html
+        targets:
+            - en  
+
+    -   name: Paid HTTP APIs
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0014-paid-http-apis/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0014-paid-http-apis/0014-paid-http-apis.md
+        template: template-spec.html
+        targets:
+            - en            
+
+    -   name: Connector Risk Mitigations
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0018-connector-risk-mitigations/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0018-connector-risk-mitigations/0018-connector-risk-mitigations.md
+        template: template-spec.html
+        targets:
+            - en   
+
+    -   name: Glossary
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0019-glossary/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0019-glossary/0019-glossary.md
+        template: template-spec.html
+        targets:
+            - en 
+
+    -   name: Hashed-Timelock Agreements (HTLAs)
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0022-hashed-timelock-agreements/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0022-hashed-timelock-agreements/0022-hashed-timelock-agreements.md
+        template: template-spec.html
+        targets:
+            - en 
+            
+    -   name: avascript Ledger Plugin Interface Version 2
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0024-ledger-plugin-interface-2/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0024-ledger-plugin-interface-2/0024-ledger-plugin-interface-2.md
+        template: template-spec.html
+        targets:
+            - en 
+
+    -   name: Relationship between Protocols
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0033-relationship-between-protocols/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0033-relationship-between-protocols/0033-relationship-between-protocols.md
+        template: template-spec.html
+        targets:
+            - en             
+
+    -   name: Interledger Node - Requirements Specification
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0034-connector-requirements/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0034-connector-requirements/0034-connector-requirements.md
+        template: template-spec.html
+        targets:
+            - en    
+
+    -   name: SPSP Invoices
+        funnel: Docs
+        doc_type: Specs
+        html: rfcs/0037-spsp-invoices/index.html
+        md: https://raw.githubusercontent.com/interledger/rfcs/master/0037-spsp-invoices/0037-spsp-invoices.md
+        template: template-spec.html
+        targets:
+            - en  
 
 
 
