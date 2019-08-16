@@ -49,6 +49,15 @@ pages:
 
 # Community ---------------------------------------------------------------------
 
+    -   name: Get Involved
+        funnel: Docs
+        doc_type: Community Resources
+        html: community.html
+        md: community.md
+        template: template-doc.html
+        targets:
+            - en  
+
     -   name: Libraries &amp; Tools
         funnel: Docs
         doc_type: Community Resources
@@ -63,7 +72,7 @@ pages:
         funnel: Docs
         doc_type: Community Resources
         html: summit-2019.html
-        # md: getting-started.md
+        md: summit-2019.md
         template: template-doc.html
         blurb: The 2019 summit brought together developers, entrepreneurs, and researchers in San Francisco for two days of sharing, building, and learning. Here you can find the recordings of the sessions and talks. Enjoy!
         targets:
